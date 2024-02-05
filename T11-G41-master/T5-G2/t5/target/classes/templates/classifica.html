@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:href="@{./t5/css/main.css}" rel="stylesheet" />
+    <link th:href="@{./t5/css/main2.css}" rel="stylesheet" />
+    <link th:href="@{./t5/bootstrap-4/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/t5/js/main.js}"></script>
+    <title>Player Ranking</title>
+    <style>
+        #classificaTable th {
+            color: white;
+            font-weight: bold;
+        }
+
+        .colored-text {
+            color: white;
+        }
+        .container{
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-custom">
+<!-- Inclusione di jQuery -->
+<script th:src="@{/t5/jquery/jquery-3.7.0.com.js}" th:inline="javascript"></script>
+
+<div class="mt-2 row">
+    <p class="user_position_main" style="color: white; font-family:Arial, Helvetica, sans-serif; font-weight: bold;">Username: <span id="usernameField"></span></p>
+    <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
+</div>
+
+<div class="container">
+    <!-- Tabella per la classifica -->
+    <div class="row">
+        <table id="classificaTable" class="table">
+            <thead>
+            <tr>
+                <th>ID Giocatore</th>
+                <th>Nome Giocatore</th>
+                <th>Partite Vinte</th>
+                <th>Partite Effetuate</th>
+             <!--   <th>Percentuale Vittorie</th>-->  <!--Nuova colonna -->
+            </tr>
+            </thead>
+            
+            <!-- Il contenuto della tabella sarà popolato dinamicamente qui -->
+            <tbody>
+                <tr th:each="giocatore : ${classifica}">
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['accountId']}"></span></td>
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['name']}"></span></td>
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['wins']}"></span></td>
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['turnsPlayed']}"></span></td>
+                  <!--   <td th:with="percentuale=${giocatore['turnsPlayed']} == 0 ? 0 : 
+                                   (giocatore['wins'] / giocatore['turnsPlayed'] * 100.0)"
+                        th:text="${#numbers.formatDecimal(percentuale, 1, 2)} + '%'"></td>
+                     -->   
+                </tr>
+                
+            </tbody>
+            
+           
+        </table>
+    </div>
+</div>
+
+</body>
+
+</html>
+
