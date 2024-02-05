@@ -42,7 +42,7 @@ Queste modifiche hanno contribuito a migliorare l'esperienza complessiva del gio
 
 
 
-Per una comprensione dettagliata dei dettagli implementativi e dell'uso, fare riferimento alla [documentazione del progetto]([[https://github.com/Testing-Game-SAD-2023/T11-G41/blob/main/DOCUMENTATION.md](https://github.com/Testing-Game-SAD-2023/A9-R9/blob/master/Software_Architecture_Design%20(4).pdf)]).
+Per una comprensione dettagliata dei dettagli implementativi e dell'uso, fare riferimento alla documentazione del progetto.
 
 # GUIDA ALL'INSTALLAZIONE
 
