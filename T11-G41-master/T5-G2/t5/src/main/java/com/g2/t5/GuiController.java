@@ -191,11 +191,24 @@ public class GuiController {
         Integer IdTemp = restTemplate.postForObject("http://t23-g1-app-1:8080/IdToken", formData, Integer.class);
         if(IdTemp != null){
             IdAuth = IdTemp.toString();
-            System.out.println("ID utente: " + IdAuth);
+            String url ="http://t4-g18-app-1:3000/turns/account/" + IdAuth;
+            List<Map<String, Object>> storico = restTemplate.getForObject(url, List.class);
+            if(storico!=null){
+                List<Map<String, Object>> filteredStorico = storico.stream()
+                        .filter(turn -> turn.get("closedAt") != null) //filtra per escludere "closedAt" == null
+                        .sorted(Comparator.comparingInt((Map<String, Object> turn) -> (Integer) turn.get("id"))) //ordina per "id"
+                        .collect(Collectors.toList());
+                model.addAttribute("storico", filteredStorico);
+            } else{
+                System.out.println("Nessun storico ricevuto o errore nela richiesta");
+            }
+         //   storico.sort(Comparator.comparingInt((Map<String,Object> turn) -> (Integer) turn.get("id")));
+                
+            //System.out.println("ID utente: " + IdAuth);
         }else{
             System.out.println("ID utente non ricevuto o errore nella richiesta");
         }
-
+        
         model.addAttribute("IdAuth", IdAuth);
       
 
