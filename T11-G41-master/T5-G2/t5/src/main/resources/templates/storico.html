@@ -49,20 +49,37 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr th:each="turno : ${storico}">
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['id']}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['startedAt']}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['closedAt']}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['TestClass']}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['Robot']}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['isWinner'] ? 'Vittoria' : 'Sconfitta'}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['Difficulty']}"></span></td>
+                        <td style ="text-align: center;"><span class="colored-text" th:text="${turno['scores']}"></span></td>
+                    </tr>
+                    
                 </tbody>
             </table>
         </div>
 
     </div>
 
-    <script>
+ <!--   <script>
         
         /*<![CDATA[*/
         var IdAuth = "[[${IdAuth}]]";
         /*]]>*/
         //funzione per effettuare la richiesta HTTP 
         function caricaStorico(){
-            fetch("http://t4-g18-app-1:3000/turns/account/" + IdAuth)
+            fetch("http://localhost:3000/turns/account/" + IdAuth, {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials:'include'
+            })
             .then(response => response.json())
             .then(data => {
                 popolaStorico(data);
@@ -102,7 +119,10 @@
         caricaStorico();
         
     </script>
+    -->
 </body>
 
 </html>
+
+
 
