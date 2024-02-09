@@ -804,8 +804,46 @@ public class TestClasse {
   Il tuo punteggio: ${response.score.toString()}% LOC
   Il punteggio del robot: ${response.robotScore.toString()}% LOC`);*/
                 
-                alert(response.win == true ? "Hai vinto!" : "Hai perso!");
-                //localStorage.clear();
+                if (localStorage.getItem("robot") == "Tutti i robot") {
+                  if(response.win == "true") {
+                    alert("Eccellente: Hai battuto tutti i Robot!");
+                  } 
+                  else if(response.numberOfBeaten == "0") {
+                    alert("Oh no! Non hai battuto nessun Robot! Riprova!");
+                  } 
+                  else {
+                    var numberOfBeaten = Number(response.numberOfBeaten);
+                    var numberOfUnbeaten = Number(response.numberOfUnbeaten);
+                    var messaggio = "Bravo! Hai totalizzato (" + response.score + "% LOC coverage) e hai vinto contro  ";
+
+                    for(var i = 1; i <= numberOfBeaten; i++) {
+                      var chiaveBeaten = "beaten" + i;
+                      var datiRobotBattuto = response[chiaveBeaten];
+                      var dati = datiRobotBattuto.split("&");
+                      var index = dati[0];
+                      var coverage = dati[1];
+                      messaggio += "Robot " + index + "(" + coverage + "%)";
+                      if(i != numberOfBeaten) messaggio += ", ";
+                    }
+
+                    messaggio += ". Ti restano da battere ";
+
+                    for(var i = 1; i <= numberOfUnbeaten; i++) {
+                      var chiaveUnbeaten = "unbeaten" + i;
+                      var datiRobotNonBattuto = response[chiaveUnbeaten];
+                      var dati = datiRobotNonBattuto.split("&");
+                      var index = dati[0];
+                      var coverage = dati[1];
+                      messaggio += "Robot " + index + "(" + coverage + "%)";
+                      if(i != numberOfBeaten) messaggio += ", ";
+                    }
+                    messaggio += ".";
+                    alert(messaggio);
+                  }
+                } 
+                else {
+                  alert(response.win == true ? "Hai vinto!" : "Hai perso!");
+                }                
                 if(response.win == true){
                   turno++;  // incremento il numero di turno giocati fino ad ora
                   //localStorage.clear();
